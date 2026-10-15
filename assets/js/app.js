@@ -166,7 +166,7 @@ function fitTableToViewport() {
   const rows = 9;
   const tableGrid = document.querySelector('.periodic-table');
   const gap = tableGrid ? parseFloat(getComputedStyle(tableGrid).gap) || 6 : 6;
-  const size = Math.max(24, Math.min((availableWidth - (cols - 1) * gap) / cols, (availableHeight - (rows - 1) * gap) / rows, 96));
+  const size = Math.max(24, Math.min((availableWidth - (cols - 1) * gap) / cols, (availableHeight - (rows - 1) * gap) / rows, 100));
   document.documentElement.style.setProperty('--cell-size', `${size}px`);
 }
 
