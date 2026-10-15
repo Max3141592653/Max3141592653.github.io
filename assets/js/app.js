@@ -222,16 +222,22 @@ function buildTable() {
 }
 
 function scaleFocusTable() {
+  if (!document.body.classList.contains('table-focus')) return;
+  const padding = 24;
+  const availableWidth = window.innerWidth - padding;
+  const availableHeight = window.innerHeight - padding;
+  const cols = 18;
+  const rows = 9;
+  const tableGrid = document.querySelector('.periodic-table');
+  const gap = tableGrid ? parseFloat(getComputedStyle(tableGrid).gap) || 6 : 6;
+  const size = Math.max(24, Math.min((availableWidth - (cols - 1) * gap) / cols, (availableHeight - (rows - 1) * gap) / rows));
+  document.documentElement.style.setProperty('--cell-size', `${size}px`);
+}
+
+function resetFocusScale() {
+  document.documentElement.style.removeProperty('--cell-size');
   const scroll = document.querySelector('.table-scroll');
-  if (!scroll || !document.body.classList.contains('table-focus')) return;
-  scroll.style.transform = 'none';
-  const availableWidth = window.innerWidth - 16;
-  const availableHeight = window.innerHeight - 16;
-  const naturalWidth = scroll.scrollWidth;
-  const naturalHeight = scroll.scrollHeight;
-  const scale = Math.min(availableWidth / naturalWidth, availableHeight / naturalHeight);
-  scroll.style.transform = `scale(${scale})`;
-  scroll.style.transformOrigin = 'center center';
+  if (scroll) scroll.style.transform = 'none';
 }
 
 function handleCellClick(element) {
@@ -477,9 +483,11 @@ function wireEvents() {
   const closeFocusButton = $('#close-focus');
   const setFocusMode = (active) => {
     document.body.classList.toggle('table-focus', active);
-    const scroll = document.querySelector('.table-scroll');
-    if (scroll) scroll.style.transform = active ? '' : 'none';
-    if (active) setTimeout(scaleFocusTable, 0);
+    if (active) {
+      setTimeout(scaleFocusTable, 0);
+    } else {
+      resetFocusScale();
+    }
   };
   const updateFocusButtons = () => {
     if (focusButton) focusButton.textContent = msg('controls.expandTable');
