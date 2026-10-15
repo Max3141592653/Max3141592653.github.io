@@ -261,7 +261,23 @@ body.table-focus .table-scroll {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: auto;
+}
+
+body.table-focus .periodic-table,
+body.table-focus .series-wrapper {
+  grid-template-columns: repeat(18, minmax(0, 1fr));
+  width: 100%;
+  max-width: 100%;
+}
+
+body.table-focus .cell,
+body.table-focus .gap,
+body.table-focus .placeholder {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  min-width: 0;
 }
 
 body.table-focus .focus-exit {
