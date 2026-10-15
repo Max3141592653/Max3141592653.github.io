@@ -18,7 +18,9 @@ export const translations = {
       reset: 'Reset progress',
       viewMistakes: 'View mistakes',
       expandTable: 'Enlarge table',
-      closeTable: 'Close table'
+      closeTable: 'Close table',
+      showOptions: 'Options',
+      hideOptions: 'Hide options'
     },
     table: { lanthanides: 'Lanthanides (57–71)', actinides: 'Actinides (89–103)' , legend: 'Legend' },
     categories: { metal: 'Metal', 'semi-metal': 'Metalloid', nonmetal: 'Non-metal', 'noble-gas': 'Noble gas' },
@@ -88,7 +90,9 @@ export const translations = {
       reset: 'Reiniciar progrés',
       viewMistakes: 'Veure errors',
       expandTable: 'Ampliar taula',
-      closeTable: 'Tancar taula'
+      closeTable: 'Tancar taula',
+      showOptions: 'Opcions',
+      hideOptions: 'Amagar opcions'
     },
     table: { lanthanides: 'Lantànids (57–71)', actinides: 'Actínids (89–103)', legend: 'Llegenda' },
     categories: { metal: 'Metall', 'semi-metal': 'Semimetall', nonmetal: 'No metall', 'noble-gas': 'Gas noble' },
@@ -158,7 +162,9 @@ export const translations = {
       reset: 'Reiniciar progreso',
       viewMistakes: 'Ver errores',
       expandTable: 'Ampliar tabla',
-      closeTable: 'Cerrar tabla'
+      closeTable: 'Cerrar tabla',
+      showOptions: 'Opciones',
+      hideOptions: 'Ocultar opciones'
     },
     table: { lanthanides: 'Lantánidos (57–71)', actinides: 'Actínidos (89–103)', legend: 'Leyenda' },
     categories: { metal: 'Metal', 'semi-metal': 'Semimetal', nonmetal: 'No metal', 'noble-gas': 'Gas noble' },
