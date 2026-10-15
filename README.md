@@ -1,5 +1,7 @@
 # Periodic Table Master
 
+Live site: https://Max3141592653.github.io/
+
 An interactive, accessible, and multilingual periodic table of the elements — built as a static web application with no backend required.
 
 ## Features
