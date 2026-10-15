@@ -1,50 +1,207 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Periodic Table Master</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Periodic Table Master — an interactive, multilingual periodic table with quizzes, practice and progress tracking.">
+  <meta name="theme-color" content="#0b0d12">
+  <title>Periodic Table Master</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚛</text></svg>">
 </head>
 <body>
-<div class="container">
-  <h1>Periodic Table Master</h1>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand">
+        <h1 data-i18n="appTitle">Periodic Table Master</h1>
+        <p data-i18n="subtitle">Explore the elements, test your knowledge, and learn the periodic table.</p>
+      </div>
+      <div class="header-actions">
+        <nav class="tabs" role="tablist" aria-label="Sections">
+          <button class="tab is-active" data-tab="table" role="tab" aria-selected="true" aria-controls="panel-table" data-i18n="tabs.table">Periodic table</button>
+          <button class="tab" data-tab="quiz" role="tab" aria-selected="false" aria-controls="panel-quiz" data-i18n="tabs.quiz">Quiz</button>
+          <button class="tab" data-tab="about" role="tab" aria-selected="false" aria-controls="panel-about" data-i18n="tabs.about">About</button>
+        </nav>
+        <select id="language" class="select" aria-label="Language"></select>
+        <button id="theme-toggle" class="icon-button" type="button" aria-label="Toggle theme">🌙</button>
+      </div>
+    </header>
 
-  <div id="scoreboard">
-    <div>Encerts: <span id="hits">0</span></div>
-    <div>Errors: <span id="errors">0</span></div>
-    <div>Temps: <span id="timer">0:00</span></div>
+    <main>
+      <!-- TABLE PANEL -->
+      <section id="panel-table" class="panel is-active" role="tabpanel" aria-labelledby="tab-table">
+        <div class="card">
+          <div class="scoreboard" role="status" aria-live="polite">
+            <div class="stat">
+              <div class="label" data-i18n="scoreboard.hits">Correct</div>
+              <div class="value" id="hits">0</div>
+            </div>
+            <div class="stat">
+              <div class="label" data-i18n="scoreboard.errors">Errors</div>
+              <div class="value" id="errors">0</div>
+            </div>
+            <div class="stat">
+              <div class="label" data-i18n="scoreboard.time">Time</div>
+              <div class="value" id="timer">0:00</div>
+            </div>
+            <div class="stat">
+              <div class="label" data-i18n="scoreboard.best">Best</div>
+              <div class="value" id="best">—</div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <div class="group">
+              <label for="version-select" data-i18n="controls.version">Mode</label>
+              <select id="version-select" class="select">
+                <option value="simple" data-i18n="controls.versionSimple">Simple (56)</option>
+                <option value="full" data-i18n="controls.versionFull">Full (118)</option>
+              </select>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="reveal-colors">
+              <span class="track" aria-hidden="true"></span>
+              <span data-i18n="controls.revealColors">Reveal colours</span>
+            </label>
+            <button id="reset-btn" class="button" type="button" data-i18n="controls.reset">Reset progress</button>
+            <button id="mistakes-btn" class="button" type="button" data-i18n="controls.viewMistakes">View mistakes</button>
+          </div>
+
+          <div class="table-scroll">
+            <div id="periodic-table" class="periodic-table" role="grid" aria-label="Periodic table"></div>
+            <div id="series-wrapper" class="series-wrapper" role="grid" aria-label="Lanthanides and actinides"></div>
+          </div>
+
+          <p class="info" style="text-align:center;margin-top:12px;color:var(--text-muted);font-size:0.85rem;">
+            * <span data-i18n="table.lanthanides">Lanthanides (57–71)</span> &nbsp;·&nbsp; ** <span data-i18n="table.actinides">Actinides (89–103)</span>
+          </p>
+
+          <div class="legend" aria-label="Legend">
+            <span class="legend-item"><span class="legend-swatch" style="background:#b9e6c9"></span> <span data-i18n="categories.metal">Metal</span></span>
+            <span class="legend-item"><span class="legend-swatch" style="background:#f6e6a8"></span> <span data-i18n="categories.nonmetal">Non-metal</span></span>
+            <span class="legend-item"><span class="legend-swatch" style="background:#f4cba8"></span> <span data-i18n="categories.semi-metal">Metalloid</span></span>
+            <span class="legend-item"><span class="legend-swatch" style="background:#d8c4ff"></span> <span data-i18n="categories.noble-gas">Noble gas</span></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- QUIZ PANEL -->
+      <section id="panel-quiz" class="panel" role="tabpanel" aria-labelledby="tab-quiz" hidden>
+        <div class="card">
+          <h2 data-i18n="quiz.title">Knowledge quiz</h2>
+          <div class="quiz-grid">
+            <div class="quiz-card card">
+              <div class="quiz-meta">
+                <span><strong data-i18n="quiz.score">Score</strong>: <span id="quiz-score">0</span></span>
+                <span><strong data-i18n="quiz.streak">Streak</strong>: <span id="quiz-streak">0</span></span>
+              </div>
+              <div class="group" style="margin:12px 0;">
+                <label for="quiz-mode" data-i18n="quiz.mode">Mode</label>
+                <select id="quiz-mode" class="select">
+                  <option value="symbol" data-i18n="quiz.modes.symbol">Symbol → Name</option>
+                  <option value="name" data-i18n="quiz.modes.name">Name → Symbol</option>
+                  <option value="number" data-i18n="quiz.modes.number">Number → Name</option>
+                </select>
+              </div>
+              <div id="quiz-question" class="quiz-question">—</div>
+              <form id="quiz-form" class="quiz-form">
+                <input type="text" id="quiz-answer" data-i18n-placeholder="quiz.answerPlaceholder" placeholder="Your answer…" autocomplete="off">
+                <button type="submit" class="button primary" data-i18n="quiz.check">Check</button>
+              </form>
+              <div id="quiz-feedback" class="feedback" aria-live="polite"></div>
+              <div style="margin-top:12px;">
+                <button id="quiz-next" class="button" type="button" data-i18n="quiz.next">Next</button>
+              </div>
+            </div>
+            <div class="quiz-card card">
+              <h3 data-i18n="quiz.statsTitle">Statistics</h3>
+              <p style="color:var(--text-muted);" data-i18n="quiz.statsBody">Your quiz score and streak are tracked above.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT PANEL -->
+      <section id="panel-about" class="panel" role="tabpanel" aria-labelledby="tab-about" hidden>
+        <div class="card about-grid">
+          <h2 data-i18n="about.title">About</h2>
+          <p data-i18n="about.description">Periodic Table Master is an interactive, accessible learning tool for the periodic table.</p>
+          <p data-i18n="about.license">Released under the MIT License.</p>
+          <div>
+            <strong data-i18n="about.links">Links</strong>
+            <ul>
+              <li><a href="https://github.com/Max3141592653/periodic_table" target="_blank" rel="noopener">GitHub repository</a></li>
+              <li><a href="PRIVACY.md">Privacy policy</a></li>
+              <li><a href="TERMS.md">Terms of use</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 
-  <div id="table" class="tab-content active">
-    <div id="periodic-table"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-    <!-- Bottom rows wrapper -->
-    <div id="series-wrapper" class="series-wrapper"></div>
+  <!-- Answer dialog -->
+  <dialog id="answer-dialog">
+    <form method="dialog" class="dialog">
+      <h3 id="answer-title">Guess</h3>
+      <div class="row">
+        <span class="k" data-i18n="modal.atomicNumber">Atomic number</span>
+        <span class="v" id="answer-number">—</span>
+      </div>
+      <label for="answer-input" data-i18n="modal.yourAnswer">Your answer (symbol or name)</label>
+      <input type="text" id="answer-input" autocomplete="off">
+      <div id="answer-feedback" class="feedback" aria-live="polite"></div>
+      <div class="actions">
+        <button type="button" class="button" value="cancel" data-i18n="modal.cancel">Cancel</button>
+        <button type="submit" class="button primary" data-i18n="modal.submit">Submit</button>
+      </div>
+    </form>
+  </dialog>
 
-    <p class="info">
-      Click any box → type symbol or name<br>
-      * = Lanthanides (57–71)  ** = Actinides (89–103)
-    </p>
-  </div>
+  <!-- Details dialog -->
+  <dialog id="details-dialog">
+    <form method="dialog" class="dialog">
+      <h3 id="details-title">Element</h3>
+      <div class="detail-grid">
+        <span class="k" data-i18n="modal.atomicNumber">Atomic number</span><span class="v" id="detail-number">—</span>
+        <span class="k" data-i18n="modal.symbol">Symbol</span><span class="v" id="detail-symbol">—</span>
+        <span class="k" data-i18n="modal.name">Name</span><span class="v" id="detail-name">—</span>
+        <span class="k" data-i18n="modal.category">Category</span><span class="v" id="detail-category">—</span>
+        <span class="k" data-i18n="modal.cpkColor">CPK colour</span><span class="v"><span id="detail-color" style="display:inline-block;width:28px;height:16px;border:1px solid var(--border);vertical-align:middle;"></span></span>
+      </div>
+      <div class="actions">
+        <button type="submit" class="button primary" data-i18n="modal.close">Close</button>
+      </div>
+    </form>
+  </dialog>
 
-  <div id="quiz" class="tab-content">
-    <div class="score">Score: <span id="score">0</span> • Streak: <span id="streak">0</span></div>
-    <select id="mode">
-      <option value="symbol">Symbol → Name</option>
-      <option value="name">Name → Symbol</option>
-      <option value="number">Number → Name</option>
-    </select>
+  <!-- Completion dialog -->
+  <dialog id="completion-dialog">
+    <form method="dialog" class="dialog completion">
+      <div class="title" data-i18n="completion.title">Table complete!</div>
+      <div class="message" id="completion-message">—</div>
+      <div class="actions" style="justify-content:center;">
+        <button type="submit" class="button primary" data-i18n="completion.close">Continue</button>
+      </div>
+    </form>
+  </dialog>
 
-    <div id="question" class="question">-</div>
-    <input type="text" id="answer" placeholder="Your answer..." autocomplete="off">
-    <button id="submit">Check</button>
-    <div id="feedback" class="feedback"></div>
-    <button id="next" class="next-btn">Next</button>
-  </div>
-</div>
+  <!-- Mistakes dialog -->
+  <dialog id="mistakes-dialog">
+    <form method="dialog" class="dialog">
+      <h3 data-i18n="controls.viewMistakes">View mistakes</h3>
+      <div id="mistakes-list" style="max-height:40vh;overflow:auto;"></div>
+      <div class="actions">
+        <button type="submit" class="button primary" data-i18n="modal.close">Close</button>
+      </div>
+    </form>
+  </dialog>
 
-<script src="elements.js"></script>
-<script src="script.js"></script>
+  <script type="module" src="assets/js/app.js"></script>
 </body>
 </html>
