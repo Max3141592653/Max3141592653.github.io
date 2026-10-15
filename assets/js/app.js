@@ -161,7 +161,7 @@ function fitTableToViewport() {
   if (!scroll) return;
   const top = scroll.getBoundingClientRect().top;
   const availableHeight = Math.max(120, window.innerHeight - top - 12);
-  const availableWidth = Math.max(180, window.innerWidth - 32);
+  const availableWidth = Math.max(180, scroll.clientWidth - 24);
   const cols = 18;
   const rows = 9;
   const tableGrid = document.querySelector('.periodic-table');
