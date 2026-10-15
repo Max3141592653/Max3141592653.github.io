@@ -19,7 +19,7 @@ export const translations = {
       viewMistakes: 'View mistakes',
       expandTable: 'Enlarge table',
       closeTable: 'Close table',
-      showOptions: 'Options',
+      showOptions: 'Show options',
       hideOptions: 'Hide options'
     },
     table: { lanthanides: 'Lanthanides (57–71)', actinides: 'Actinides (89–103)' , legend: 'Legend' },
@@ -91,7 +91,7 @@ export const translations = {
       viewMistakes: 'Veure errors',
       expandTable: 'Ampliar taula',
       closeTable: 'Tancar taula',
-      showOptions: 'Opcions',
+      showOptions: 'Mostrar opcions',
       hideOptions: 'Amagar opcions'
     },
     table: { lanthanides: 'Lantànids (57–71)', actinides: 'Actínids (89–103)', legend: 'Llegenda' },
@@ -163,7 +163,7 @@ export const translations = {
       viewMistakes: 'Ver errores',
       expandTable: 'Ampliar tabla',
       closeTable: 'Cerrar tabla',
-      showOptions: 'Opciones',
+      showOptions: 'Mostrar opciones',
       hideOptions: 'Ocultar opciones'
     },
     table: { lanthanides: 'Lantánidos (57–71)', actinides: 'Actínidos (89–103)', legend: 'Leyenda' },
