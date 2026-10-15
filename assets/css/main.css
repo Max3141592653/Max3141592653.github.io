@@ -220,9 +220,10 @@ body {
 .table-scroll { overflow: auto; padding-bottom: 8px; }
 .periodic-table, .series-wrapper {
   display: grid;
-  grid-template-columns: repeat(18, minmax(0, 1fr));
+  grid-template-columns: repeat(18, var(--cell-size));
   gap: var(--gap);
-  width: 100%;
+  width: max-content;
+  margin: 0 auto;
   padding: clamp(8px, 1vw, 12px);
   background: var(--bg-2);
   border: 1px solid var(--border);
@@ -232,9 +233,9 @@ body {
 .series-wrapper { margin-top: 12px; }
 
 .cell, .gap, .placeholder {
-  width: 100%;
+  width: var(--cell-size);
+  height: var(--cell-size);
   aspect-ratio: 1 / 1;
-  height: auto;
   color: var(--text);
   border-radius: var(--radius-sm);
   display: flex;

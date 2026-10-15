@@ -211,6 +211,7 @@ function buildTable() {
   series.innerHTML = '';
   const rowLimit = 7;
   MAIN_ROWS.forEach((row, index) => {
+    if (row.every((value) => value === 0)) return;
     row.forEach((value) => {
       const node = createCell(value);
       if (index < rowLimit) table.appendChild(node);
@@ -218,6 +219,21 @@ function buildTable() {
     });
   });
   refreshTable();
+}
+
+function fitPeriodicTable() {
+  const scroll = document.querySelector('.table-scroll');
+  if (!scroll) return;
+  const top = scroll.getBoundingClientRect().top;
+  const availableHeight = Math.max(120, window.innerHeight - top - 16);
+  const availableWidth = Math.max(180, window.innerWidth - 32);
+  const cols = 18;
+  const rows = 9;
+  const gap = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gap')) || 6;
+  const byWidth = (availableWidth - (cols - 1) * gap) / cols;
+  const byHeight = (availableHeight - (rows - 1) * gap) / rows;
+  const size = Math.max(18, Math.min(byWidth, byHeight));
+  document.documentElement.style.setProperty('--cell-size', `${size}px`);
 }
 
 function handleCellClick(element) {
@@ -374,6 +390,7 @@ function switchTab(name) {
     panel.classList.toggle('is-active', active);
     panel.hidden = !active;
   });
+  if (name === 'table') setTimeout(fitPeriodicTable, 0);
 }
 
 function nextQuizQuestion() {
@@ -490,6 +507,8 @@ function init() {
 
   translateStatic();
   buildTable();
+  fitPeriodicTable();
+  window.addEventListener('resize', fitPeriodicTable);
   wireEvents();
   updateStats();
 
