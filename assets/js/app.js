@@ -155,6 +155,21 @@ function refreshTable() {
   updateColorReveal();
 }
 
+function fitTableToViewport() {
+  if (document.body.classList.contains('table-focus')) return;
+  const scroll = document.querySelector('.table-scroll');
+  if (!scroll) return;
+  const top = scroll.getBoundingClientRect().top;
+  const availableHeight = Math.max(120, window.innerHeight - top - 12);
+  const availableWidth = Math.max(180, window.innerWidth - 32);
+  const cols = 18;
+  const rows = 9;
+  const tableGrid = document.querySelector('.periodic-table');
+  const gap = tableGrid ? parseFloat(getComputedStyle(tableGrid).gap) || 6 : 6;
+  const size = Math.max(24, Math.min((availableWidth - (cols - 1) * gap) / cols, (availableHeight - (rows - 1) * gap) / rows, 88));
+  document.documentElement.style.setProperty('--cell-size', `${size}px`);
+}
+
 function applyCategoryClass(cell, element, filled) {
   cell.classList.remove('metal', 'nonmetal', 'semi-metal', 'noble-gas');
   if (!filled) return;
@@ -534,8 +549,10 @@ function init() {
 
   translateStatic();
   buildTable();
+  fitTableToViewport();
   window.addEventListener('resize', () => {
-    // Keep the original table size in focus mode.
+    if (document.body.classList.contains('table-focus')) scaleFocusTable();
+    else fitTableToViewport();
   });
   wireEvents();
   updateStats();
