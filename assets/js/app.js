@@ -221,20 +221,18 @@ function buildTable() {
   refreshTable();
 }
 
-function fitPeriodicTable() {
+function scaleFocusTable() {
   const scroll = document.querySelector('.table-scroll');
-  if (!scroll) return;
-  const top = scroll.getBoundingClientRect().top;
-  const availableHeight = Math.max(120, window.innerHeight - top - 16);
-  const availableWidth = Math.max(180, window.innerWidth - 32);
-  const cols = 18;
-  const rows = 9;
-  const tableGrid = document.querySelector('.periodic-table');
-  const gap = tableGrid ? parseFloat(getComputedStyle(tableGrid).gap) || 6 : 6;
-  const byWidth = (availableWidth - (cols - 1) * gap) / cols;
-  const byHeight = (availableHeight - (rows - 1) * gap) / rows;
-  const size = Math.max(18, Math.min(byWidth, byHeight));
-  document.documentElement.style.setProperty('--cell-size', `${size}px`);
+  if (!scroll || !document.body.classList.contains('table-focus')) return;
+  scroll.style.transform = 'none';
+  const availableWidth = window.innerWidth - 16;
+  const availableHeight = window.innerHeight - 16;
+  const naturalWidth = scroll.scrollWidth;
+  const naturalHeight = scroll.scrollHeight;
+  if (!naturalWidth || !naturalHeight) return;
+  const scale = Math.min(availableWidth / naturalWidth, availableHeight / naturalHeight, 1);
+  scroll.style.transform = `scale(${scale})`;
+  scroll.style.transformOrigin = 'center center';
 }
 
 function handleCellClick(element) {
@@ -395,7 +393,7 @@ function switchTab(name) {
     panel.classList.toggle('is-active', active);
     panel.hidden = !active;
   });
-  if (name === 'table') setTimeout(fitPeriodicTable, 0);
+  if (name === 'table' && document.body.classList.contains('table-focus')) setTimeout(scaleFocusTable, 0);
 }
 
 function nextQuizQuestion() {
@@ -480,7 +478,9 @@ function wireEvents() {
   const closeFocusButton = $('#close-focus');
   const setFocusMode = (active) => {
     document.body.classList.toggle('table-focus', active);
-    if (active) setTimeout(fitPeriodicTable, 0);
+    const scroll = document.querySelector('.table-scroll');
+    if (scroll) scroll.style.transform = active ? '' : 'none';
+    if (active) setTimeout(scaleFocusTable, 0);
   };
   const updateFocusButtons = () => {
     if (focusButton) focusButton.textContent = msg('controls.expandTable');
@@ -532,7 +532,7 @@ function init() {
   translateStatic();
   buildTable();
   window.addEventListener('resize', () => {
-    if (document.body.classList.contains('table-focus')) fitPeriodicTable();
+    if (document.body.classList.contains('table-focus')) scaleFocusTable();
   });
   wireEvents();
   updateStats();
