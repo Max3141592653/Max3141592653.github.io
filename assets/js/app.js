@@ -361,12 +361,10 @@ function changeLanguage(code) {
   state.language = code;
   track('ptm.language', code);
   translateStatic();
-  const fullscreenButton = $('#fullscreen-btn');
-  if (fullscreenButton) {
-    fullscreenButton.textContent = document.fullscreenElement
-      ? msg('controls.fullscreenExit')
-      : msg('controls.fullscreen');
-  }
+  const focusButton = $('#focus-btn');
+  if (focusButton) focusButton.textContent = msg('controls.expandTable');
+  const closeFocusButton = $('#close-focus');
+  if (closeFocusButton) closeFocusButton.textContent = msg('controls.closeTable');
   refreshTable();
   $('#language').value = code;
   document.documentElement.lang = code;
@@ -477,25 +475,24 @@ function wireEvents() {
   });
   $('#mistakes-btn').addEventListener('click', openMistakes);
 
-  const fullscreenButton = $('#fullscreen-btn');
-  const updateFullscreenButton = () => {
-    fullscreenButton.textContent = document.fullscreenElement
-      ? msg('controls.fullscreenExit')
-      : msg('controls.fullscreen');
+  const focusButton = $('#focus-btn');
+  const closeFocusButton = $('#close-focus');
+  const setFocusMode = (active) => {
+    document.body.classList.toggle('table-focus', active);
+    if (active) setTimeout(fitPeriodicTable, 0);
   };
-  fullscreenButton.addEventListener('click', async () => {
-    try {
-      if (document.fullscreenElement) await document.exitFullscreen();
-      else await document.documentElement.requestFullscreen();
-    } catch (error) {
-      showToast(error.message || 'Full screen not available');
+  const updateFocusButtons = () => {
+    if (focusButton) focusButton.textContent = msg('controls.expandTable');
+    if (closeFocusButton) closeFocusButton.textContent = msg('controls.closeTable');
+  };
+  focusButton?.addEventListener('click', () => setFocusMode(true));
+  closeFocusButton?.addEventListener('click', () => setFocusMode(false));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && document.body.classList.contains('table-focus')) {
+      setFocusMode(false);
     }
   });
-  document.addEventListener('fullscreenchange', () => {
-    updateFullscreenButton();
-    setTimeout(fitPeriodicTable, 100);
-  });
-  updateFullscreenButton();
+  updateFocusButtons();
 
   $('#quiz-form').addEventListener('submit', checkQuizAnswer);
   $('#quiz-next').addEventListener('click', nextQuizQuestion);
@@ -533,8 +530,9 @@ function init() {
 
   translateStatic();
   buildTable();
-  fitPeriodicTable();
-  window.addEventListener('resize', fitPeriodicTable);
+  window.addEventListener('resize', () => {
+    if (document.body.classList.contains('table-focus')) fitPeriodicTable();
+  });
   wireEvents();
   updateStats();
 
