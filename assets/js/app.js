@@ -380,6 +380,13 @@ function changeLanguage(code) {
   state.language = code;
   track('ptm.language', code);
   translateStatic();
+  const optionsToggle = $('#options-toggle');
+  const controlsPanel = $('.controls');
+  if (optionsToggle && controlsPanel) {
+    optionsToggle.textContent = controlsPanel.classList.contains('is-collapsed')
+      ? msg('controls.showOptions')
+      : msg('controls.hideOptions');
+  }
   const focusButton = $('#focus-btn');
   if (focusButton) focusButton.textContent = msg('controls.expandTable');
   const closeFocusButton = $('#close-focus');
@@ -493,6 +500,22 @@ function wireEvents() {
     if (confirm('Reset all progress?')) resetProgress();
   });
   $('#mistakes-btn').addEventListener('click', openMistakes);
+
+  const optionsToggle = $('#options-toggle');
+  const controlsPanel = $('.controls');
+  const updateOptionsToggle = () => {
+    if (!optionsToggle || !controlsPanel) return;
+    optionsToggle.textContent = controlsPanel.classList.contains('is-collapsed')
+      ? msg('controls.showOptions')
+      : msg('controls.hideOptions');
+  };
+  optionsToggle?.addEventListener('click', () => {
+    controlsPanel?.classList.toggle('is-collapsed');
+    localStorage.setItem('ptm.controlsCollapsed', String(controlsPanel?.classList.contains('is-collapsed')));
+    updateOptionsToggle();
+  });
+  if (localStorage.getItem('ptm.controlsCollapsed') === 'true') controlsPanel?.classList.add('is-collapsed');
+  updateOptionsToggle();
 
   const focusButton = $('#focus-btn');
   const closeFocusButton = $('#close-focus');

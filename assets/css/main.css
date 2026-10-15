@@ -207,6 +207,23 @@ body {
   box-shadow: var(--shadow);
   max-width: 220px;
 }
+
+.controls.is-collapsed { display: none; }
+
+.options-toggle {
+  position: fixed;
+  right: 8px;
+  top: 10px;
+  z-index: 70;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
 .controls .group {
   display: flex;
   align-items: center;
