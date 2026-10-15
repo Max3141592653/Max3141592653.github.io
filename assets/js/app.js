@@ -229,8 +229,7 @@ function scaleFocusTable() {
   const availableHeight = window.innerHeight - 16;
   const naturalWidth = scroll.scrollWidth;
   const naturalHeight = scroll.scrollHeight;
-  if (!naturalWidth || !naturalHeight) return;
-  const scale = Math.min(availableWidth / naturalWidth, availableHeight / naturalHeight, 1);
+  const scale = Math.min(availableWidth / naturalWidth, availableHeight / naturalHeight);
   scroll.style.transform = `scale(${scale})`;
   scroll.style.transformOrigin = 'center center';
 }
