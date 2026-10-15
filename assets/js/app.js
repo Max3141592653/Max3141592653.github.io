@@ -483,11 +483,7 @@ function wireEvents() {
   const closeFocusButton = $('#close-focus');
   const setFocusMode = (active) => {
     document.body.classList.toggle('table-focus', active);
-    if (active) {
-      setTimeout(scaleFocusTable, 0);
-    } else {
-      resetFocusScale();
-    }
+    if (!active) resetFocusScale();
   };
   const updateFocusButtons = () => {
     if (focusButton) focusButton.textContent = msg('controls.expandTable');
@@ -539,7 +535,7 @@ function init() {
   translateStatic();
   buildTable();
   window.addEventListener('resize', () => {
-    if (document.body.classList.contains('table-focus')) scaleFocusTable();
+    // Keep the original table size in focus mode.
   });
   wireEvents();
   updateStats();
