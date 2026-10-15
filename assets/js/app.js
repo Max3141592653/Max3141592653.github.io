@@ -229,7 +229,8 @@ function fitPeriodicTable() {
   const availableWidth = Math.max(180, window.innerWidth - 32);
   const cols = 18;
   const rows = 9;
-  const gap = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gap')) || 6;
+  const tableGrid = document.querySelector('.periodic-table');
+  const gap = tableGrid ? parseFloat(getComputedStyle(tableGrid).gap) || 6 : 6;
   const byWidth = (availableWidth - (cols - 1) * gap) / cols;
   const byHeight = (availableHeight - (rows - 1) * gap) / rows;
   const size = Math.max(18, Math.min(byWidth, byHeight));
