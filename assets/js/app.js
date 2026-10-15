@@ -361,6 +361,12 @@ function changeLanguage(code) {
   state.language = code;
   track('ptm.language', code);
   translateStatic();
+  const fullscreenButton = $('#fullscreen-btn');
+  if (fullscreenButton) {
+    fullscreenButton.textContent = document.fullscreenElement
+      ? msg('controls.fullscreenExit')
+      : msg('controls.fullscreen');
+  }
   refreshTable();
   $('#language').value = code;
   document.documentElement.lang = code;
@@ -470,6 +476,26 @@ function wireEvents() {
     if (confirm('Reset all progress?')) resetProgress();
   });
   $('#mistakes-btn').addEventListener('click', openMistakes);
+
+  const fullscreenButton = $('#fullscreen-btn');
+  const updateFullscreenButton = () => {
+    fullscreenButton.textContent = document.fullscreenElement
+      ? msg('controls.fullscreenExit')
+      : msg('controls.fullscreen');
+  };
+  fullscreenButton.addEventListener('click', async () => {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else await document.documentElement.requestFullscreen();
+    } catch (error) {
+      showToast(error.message || 'Full screen not available');
+    }
+  });
+  document.addEventListener('fullscreenchange', () => {
+    updateFullscreenButton();
+    setTimeout(fitPeriodicTable, 100);
+  });
+  updateFullscreenButton();
 
   $('#quiz-form').addEventListener('submit', checkQuizAnswer);
   $('#quiz-next').addEventListener('click', nextQuizQuestion);
