@@ -177,6 +177,7 @@ body {
 
 #scoreboard .stat .label { font-size: 0.65rem; }
 #scoreboard .stat .value { font-size: 0.85rem; margin-top: 0; }
+#scoreboard.is-collapsed { display: none; }
 
 /* Scoreboard */
 .scoreboard {
@@ -209,6 +210,21 @@ body {
 }
 
 .controls.is-collapsed { display: none; }
+
+.scoreboard-toggle {
+  position: fixed;
+  left: 8px;
+  top: 10px;
+  z-index: 70;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
 
 .options-toggle {
   position: fixed;

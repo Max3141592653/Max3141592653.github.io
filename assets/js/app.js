@@ -380,6 +380,13 @@ function changeLanguage(code) {
   state.language = code;
   track('ptm.language', code);
   translateStatic();
+  const scoreboardToggle = $('#scoreboard-toggle');
+  const scoreboardPanel = $('#scoreboard');
+  if (scoreboardToggle && scoreboardPanel) {
+    scoreboardToggle.textContent = scoreboardPanel.classList.contains('is-collapsed')
+      ? msg('scoreboard.show')
+      : msg('scoreboard.hide');
+  }
   const optionsToggle = $('#options-toggle');
   const controlsPanel = $('.controls');
   if (optionsToggle && controlsPanel) {
@@ -500,6 +507,22 @@ function wireEvents() {
     if (confirm('Reset all progress?')) resetProgress();
   });
   $('#mistakes-btn').addEventListener('click', openMistakes);
+
+  const scoreboardToggle = $('#scoreboard-toggle');
+  const scoreboardPanel = $('#scoreboard');
+  const updateScoreboardToggle = () => {
+    if (!scoreboardToggle || !scoreboardPanel) return;
+    scoreboardToggle.textContent = scoreboardPanel.classList.contains('is-collapsed')
+      ? msg('scoreboard.show')
+      : msg('scoreboard.hide');
+  };
+  scoreboardToggle?.addEventListener('click', () => {
+    scoreboardPanel?.classList.toggle('is-collapsed');
+    localStorage.setItem('ptm.scoreboardCollapsed', String(scoreboardPanel?.classList.contains('is-collapsed')));
+    updateScoreboardToggle();
+  });
+  if (localStorage.getItem('ptm.scoreboardCollapsed') === 'true') scoreboardPanel?.classList.add('is-collapsed');
+  updateScoreboardToggle();
 
   const optionsToggle = $('#options-toggle');
   const controlsPanel = $('.controls');
