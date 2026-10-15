@@ -9,7 +9,7 @@ export const translations = {
     appTitle: 'Periodic Table Master',
     subtitle: 'Explore the elements, test your knowledge, and learn the periodic table.',
     tabs: { table: 'Periodic table', quiz: 'Quiz', about: 'About' },
-    scoreboard: { title: 'Scoreboard', hits: 'Correct', errors: 'Errors', time: 'Time', best: 'Best' },
+    scoreboard: { title: 'Scoreboard', hits: 'Correct', errors: 'Errors', time: 'Time', best: 'Best' , show: 'Show stats', hide: 'Hide stats' },
     controls: {
       version: 'Mode',
       versionSimple: 'Simple (56)',
@@ -81,7 +81,7 @@ export const translations = {
     appTitle: 'Mestre de la taula periòdica',
     subtitle: 'Explora els elements, posa a prova els teus coneixements i aprèn la taula periòdica.',
     tabs: { table: 'Taula periòdica', quiz: 'Qüestionari', about: 'Quant a' },
-    scoreboard: { title: 'Puntuació', hits: 'Encerts', errors: 'Errors', time: 'Temps', best: 'Rècord' },
+    scoreboard: { title: 'Puntuació', hits: 'Encerts', errors: 'Errors', time: 'Temps', best: 'Rècord' , show: 'Mostrar estadístiques', hide: 'Amagar estadístiques' },
     controls: {
       version: 'Mode',
       versionSimple: "Simple (56)",
@@ -153,7 +153,7 @@ export const translations = {
     appTitle: 'Maestro de la tabla periódica',
     subtitle: 'Explora los elementos, pon a prueba tus conocimientos y aprende la tabla periódica.',
     tabs: { table: 'Tabla periódica', quiz: 'Cuestionario', about: 'Acerca de' },
-    scoreboard: { title: 'Puntuación', hits: 'Aciertos', errors: 'Errores', time: 'Tiempo', best: 'Récord' },
+    scoreboard: { title: 'Puntuación', hits: 'Aciertos', errors: 'Errores', time: 'Tiempo', best: 'Récord' , show: 'Mostrar estadísticas', hide: 'Ocultar estadísticas' },
     controls: {
       version: 'Modo',
       versionSimple: 'Simple (56)',
