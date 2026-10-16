@@ -166,7 +166,7 @@ function fitTableToViewport() {
   const rows = 9;
   const tableGrid = document.querySelector('.periodic-table');
   const gap = tableGrid ? parseFloat(getComputedStyle(tableGrid).gap) || 6 : 6;
-  const size = Math.max(24, Math.min((availableWidth - (cols - 1) * gap) / cols, (availableHeight - (rows - 1) * gap) / rows, 70));
+  const size = Math.max(24, Math.min((availableWidth - (cols - 1) * gap) / cols, (availableHeight - (rows - 1) * gap) / rows, 64));
   document.documentElement.style.setProperty('--cell-size', `${size}px`);
 }
 
@@ -237,19 +237,24 @@ function buildTable() {
   const card = document.querySelector('#panel-table .card');
   const controlsPanel = document.querySelector('.controls');
   const scoreboardPanel = document.querySelector('#scoreboard');
-  if (controlsPanel) {
-    controlsPanel.classList.add('bottom-panel');
-    controlsPanel.style.position = 'static';
-    controlsPanel.style.transform = 'none';
-    controlsPanel.style.inset = 'auto';
-    if (card) card.appendChild(controlsPanel);
-  }
-  if (scoreboardPanel) {
-    scoreboardPanel.classList.add('bottom-panel');
-    scoreboardPanel.style.position = 'static';
-    scoreboardPanel.style.transform = 'none';
-    scoreboardPanel.style.inset = 'auto';
-    if (card) card.appendChild(scoreboardPanel);
+  if (card && (controlsPanel || scoreboardPanel)) {
+    const bottomRow = document.createElement('div');
+    bottomRow.className = 'bottom-row';
+    if (controlsPanel) {
+      controlsPanel.classList.add('bottom-panel');
+      controlsPanel.style.position = 'static';
+      controlsPanel.style.transform = 'none';
+      controlsPanel.style.inset = 'auto';
+      bottomRow.appendChild(controlsPanel);
+    }
+    if (scoreboardPanel) {
+      scoreboardPanel.classList.add('bottom-panel');
+      scoreboardPanel.style.position = 'static';
+      scoreboardPanel.style.transform = 'none';
+      scoreboardPanel.style.inset = 'auto';
+      bottomRow.appendChild(scoreboardPanel);
+    }
+    card.appendChild(bottomRow);
   }
 
   refreshTable();
