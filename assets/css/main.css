@@ -223,6 +223,35 @@ body {
 .controls > summary { cursor: pointer; font-weight: 700; user-select: none; list-style: none; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
 .controls > summary::-webkit-details-marker { display: none; }
 
+.bottom-panel {
+  position: static !important;
+  transform: none !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 6px 0 !important;
+  justify-content: center !important;
+}
+
+.controls.bottom-panel {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+#scoreboard.bottom-panel {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
 .scoreboard-toggle {
   position: fixed;
   left: 8px;

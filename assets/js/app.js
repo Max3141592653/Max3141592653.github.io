@@ -234,10 +234,23 @@ function buildTable() {
     });
   });
 
+  const card = document.querySelector('#panel-table .card');
   const controlsPanel = document.querySelector('.controls');
   const scoreboardPanel = document.querySelector('#scoreboard');
-  if (controlsPanel) table.appendChild(controlsPanel);
-  if (scoreboardPanel) table.appendChild(scoreboardPanel);
+  if (controlsPanel) {
+    controlsPanel.classList.add('bottom-panel');
+    controlsPanel.style.position = 'static';
+    controlsPanel.style.transform = 'none';
+    controlsPanel.style.inset = 'auto';
+    if (card) card.appendChild(controlsPanel);
+  }
+  if (scoreboardPanel) {
+    scoreboardPanel.classList.add('bottom-panel');
+    scoreboardPanel.style.position = 'static';
+    scoreboardPanel.style.transform = 'none';
+    scoreboardPanel.style.inset = 'auto';
+    if (card) card.appendChild(scoreboardPanel);
+  }
 
   refreshTable();
 }
