@@ -309,6 +309,25 @@ body {
 }
 .series-wrapper { margin-top: 12px; }
 
+/* Panels placed inside the empty top row between H and He */
+.periodic-table > .controls,
+.periodic-table > #scoreboard {
+  position: static;
+  transform: none;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  z-index: 3;
+  grid-row: 1;
+  width: 100%;
+  max-width: 100%;
+  align-self: center;
+}
+
+.periodic-table > .controls { grid-column: 2 / 10; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px; }
+.periodic-table > #scoreboard { grid-column: 10 / 18; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px; }
+
 .focus-exit {
   display: none;
   align-items: center;

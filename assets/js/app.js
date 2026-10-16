@@ -233,6 +233,12 @@ function buildTable() {
       else series.appendChild(node);
     });
   });
+
+  const controlsPanel = document.querySelector('.controls');
+  const scoreboardPanel = document.querySelector('#scoreboard');
+  if (controlsPanel) table.appendChild(controlsPanel);
+  if (scoreboardPanel) table.appendChild(scoreboardPanel);
+
   refreshTable();
 }
 
