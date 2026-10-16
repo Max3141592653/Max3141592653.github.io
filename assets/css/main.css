@@ -220,6 +220,9 @@ body {
 
 .controls.is-collapsed { display: none; }
 
+.controls > summary { cursor: pointer; font-weight: 700; user-select: none; list-style: none; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+.controls > summary::-webkit-details-marker { display: none; }
+
 .scoreboard-toggle {
   position: fixed;
   left: 8px;

@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="assets/css/main.css?v=20261017">
+  <link rel="stylesheet" href="assets/css/main.css?v=20261018">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚛</text></svg>">
 </head>
 <body>
@@ -54,7 +54,8 @@
             </div>
           </details>
 
-          <div class="controls">
+          <details class="controls" open>
+            <summary data-i18n="controls.title">Controls</summary>
             <div class="group">
               <label for="version-select" data-i18n="controls.version">Mode</label>
               <select id="version-select" class="select">
@@ -69,7 +70,7 @@
             </label>
             <button id="reset-btn" class="button" type="button" data-i18n="controls.reset">Reset progress</button>
             <button id="mistakes-btn" class="button" type="button" data-i18n="controls.viewMistakes">View mistakes</button>
-          </div>
+          </details>
 
           <div class="table-scroll">
             <div id="periodic-table" class="periodic-table" role="grid" aria-label="Periodic table"></div>
@@ -203,6 +204,6 @@
     </form>
   </dialog>
 
-  <script type="module" src="assets/js/app.js?v=20261017"></script>
+  <script type="module" src="assets/js/app.js?v=20261018"></script>
 </body>
 </html>

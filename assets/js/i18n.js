@@ -11,6 +11,7 @@ export const translations = {
     tabs: { table: 'Periodic table', quiz: 'Quiz', about: 'About' },
     scoreboard: { title: 'Scoreboard', hits: 'Correct', errors: 'Errors', time: 'Time', best: 'Best' , show: 'Show stats', hide: 'Hide stats' },
     controls: {
+      title: 'Controls',
       version: 'Mode',
       versionSimple: 'Simple (56)',
       versionFull: 'Full (118)',
@@ -83,6 +84,7 @@ export const translations = {
     tabs: { table: 'Taula periòdica', quiz: 'Qüestionari', about: 'Quant a' },
     scoreboard: { title: 'Puntuació', hits: 'Encerts', errors: 'Errors', time: 'Temps', best: 'Rècord' , show: 'Mostrar estadístiques', hide: 'Amagar estadístiques' },
     controls: {
+      title: 'Controls',
       version: 'Mode',
       versionSimple: "Simple (56)",
       versionFull: 'Complet (118)',
