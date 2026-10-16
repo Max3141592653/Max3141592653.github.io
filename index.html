@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="assets/css/main.css?v=20261016">
+  <link rel="stylesheet" href="assets/css/main.css?v=20261017">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚛</text></svg>">
 </head>
 <body>
@@ -34,7 +34,8 @@
       <!-- TABLE PANEL -->
       <section id="panel-table" class="panel is-active" role="tabpanel" aria-labelledby="tab-table">
         <div class="card">
-          <div class="scoreboard" role="status" aria-live="polite">
+          <details id="scoreboard" class="scoreboard" role="status" aria-live="polite" open>
+            <summary data-i18n="scoreboard.title">Scoreboard</summary>
             <div class="stat">
               <div class="label" data-i18n="scoreboard.hits">Correct</div>
               <div class="value" id="hits">0</div>
@@ -49,9 +50,9 @@
             </div>
             <div class="stat">
               <div class="label" data-i18n="scoreboard.best">Best</div>
-              <div class="value" id="best">—</div>
+              <div class="value" id="best">-</div>
             </div>
-          </div>
+          </details>
 
           <div class="controls">
             <div class="group">
@@ -202,6 +203,6 @@
     </form>
   </dialog>
 
-  <script type="module" src="assets/js/app.js?v=20261016"></script>
+  <script type="module" src="assets/js/app.js?v=20261017"></script>
 </body>
 </html>

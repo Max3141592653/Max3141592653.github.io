@@ -179,6 +179,15 @@ body {
 #scoreboard .stat .value { font-size: 0.85rem; margin-top: 0; }
 #scoreboard.is-collapsed { display: none; }
 
+#scoreboard > summary {
+  cursor: pointer;
+  font-weight: 700;
+  user-select: none;
+  margin-right: 6px;
+  list-style: none;
+}
+#scoreboard > summary::-webkit-details-marker { display: none; }
+
 /* Scoreboard */
 .scoreboard {
   display: grid;
