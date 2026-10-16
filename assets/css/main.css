@@ -320,13 +320,37 @@ body {
   left: auto;
   z-index: 3;
   grid-row: 1;
-  width: 100%;
+  width: auto;
   max-width: 100%;
   align-self: center;
+  margin: 0 4px;
+  padding: 4px 8px;
+  background: rgba(31, 31, 31, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  gap: 6px;
+  font-size: 0.72rem;
 }
 
-.periodic-table > .controls { grid-column: 2 / 10; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px; }
-.periodic-table > #scoreboard { grid-column: 10 / 18; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px; }
+.periodic-table > .controls { grid-column: 2 / 10; flex-direction: row; flex-wrap: wrap; align-items: center; }
+.periodic-table > #scoreboard { grid-column: 10 / 18; flex-direction: row; flex-wrap: wrap; align-items: center; }
+
+.periodic-table > .controls > summary,
+.periodic-table > #scoreboard > summary {
+  cursor: pointer;
+  font-weight: 700;
+  padding-right: 6px;
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  list-style: none;
+  margin: 0;
+  user-select: none;
+}
+.periodic-table > .controls > summary::-webkit-details-marker,
+.periodic-table > #scoreboard > summary::-webkit-details-marker {
+  display: none;
+}
 
 .focus-exit {
   display: none;
@@ -385,7 +409,7 @@ body.table-focus .focus-exit {
   height: var(--cell-size);
   aspect-ratio: 1 / 1;
   color: var(--text);
-  border-radius: var(--radius-sm);
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
