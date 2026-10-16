@@ -32,7 +32,7 @@ const state = {
   language: getLanguage(),
   theme: localStorage.getItem('ptm.theme') || 'dark',
   version: localStorage.getItem('ptm.version') || 'full',
-  showColors: localStorage.getItem('ptm.showColors') === 'true',
+  showColors: localStorage.getItem('ptm.showColors') == null ? true : localStorage.getItem('ptm.showColors') === 'true',
   hits: 0,
   errors: 0,
   seconds: 0,
